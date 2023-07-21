@@ -1,0 +1,153 @@
+{%extends 'landing/base.html'%}
+{%load static%}
+
+
+{%block title%}
+Studio GPT
+{%endblock title%}
+
+{%block css%}
+{%endblock css%}
+
+{% block navbar%}
+{% include 'landing/snippets/_navbar.html' %}
+{% endblock navbar%}
+
+{%block hero%}
+<div class="container col-xxl-8 px-4 py-5 mb-4" id="home">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src={%static 'img/hero.png'%} class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">DjangoGPT</h1>
+        <p class="lead">A Django template to bring you GPT based idea to life quickly</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <button type="button" class="btn btn-dark btn-lg px-4 me-md-2">Learn more</button>
+          <button type="button" class="btn btn-outline-dark btn-lg px-4">Download (free)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{%endblock hero%}
+
+{%block features%}
+<div class="container col-xxl-8 px-4 py-5 mb-1" id="features">
+    <h2 class="pb-2 border-bottom">Features</h2>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#bootstrap"/></svg>
+        <div>
+          <h4 class="fw-bold mb-0">Landing page</h4>
+          <p>Engaging and customizable landing page to showcase your GPT-based applications effectively.</p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#cpu-fill"/></svg>
+        <div>
+          <h4 class="fw-bold mb-0">User management</h4>
+          <p>Complete user management layer with authentication, registration, and profile functionalities.</p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#calendar3"/></svg>
+        <div>
+          <h4 class="fw-bold mb-0">Visitor Statistics</h4>
+          <p> Track and analyze visitor statistics for valuable insights and optimization.</p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#home"/></svg>
+        <div>
+          <h4 class="fw-bold mb-0">Subscription Tracking</h4>
+          <p>Monitor user subscriptions to different plans for efficient management.</p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#speedometer2"/></svg>
+        <div>
+          <h4 class="fw-bold mb-0">Pre-built GPT Examples</h4>
+          <p>Access and customize various GPT-based application templates for quick deployment.</p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#toggles2"/></svg>
+        <div>
+          <h4 class="fw-bold mb-0">Extensibility</h4>
+          <p>Easily extend the provided GPT examples to build tailor-made applications.</p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#geo-fill"/></svg>
+        <div>
+          <h4 class="fw-bold mb-0">Free and Open Source</h4>
+          <p>Enjoy the benefits of a free and open-source framework for GPT app development.</p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#tools"/></svg>
+        <div>
+          <h4 class="fw-bold mb-0">Comprehensive Documentation</h4>
+          <p>Detailed documentation for smooth integration and customization.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{%endblock features%}
+
+{%block pricing%}
+
+<div class="container col-xxl-8 px-4 py-1 mb-4" >
+    <h2 class="pb-2 border-bottom" id="pricing">Pricing</h2>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+          <h4 class="my-0 fw-normal">Free</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Limited data storage</li>
+          </ul>
+          <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+          <h4 class="my-0 fw-normal">Individual</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>10 GB of storage</li>
+          </ul>
+          <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm border-primary">
+        <div class="card-header py-3 text-white bg-primary border-primary">
+          <h4 class="my-0 fw-normal">Enterprise</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$29<small class="text-muted fw-light">/mo</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>15 GB of storage</li>
+          </ul>
+          <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{%endblock pricing%}
+
+{% block footer%}
+{% include 'landing/snippets/_footer.html' %}
+{% endblock footer%}
