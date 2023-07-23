@@ -43,7 +43,13 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'dashboard.apps.DashboardConfig',
     'sales.apps.SalesConfig',
-    'landing.apps.LandingConfig'
+    'landing.apps.LandingConfig',
+
+    # Third-party
+    'crispy_forms', # new
+    "crispy_bootstrap5",
+    'allauth', # new
+    'allauth.account', # new
 ]
 
 MIDDLEWARE = [
@@ -56,12 +62,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'DjangoGPT.urls'
+ROOT_URLCONF = 'djangoGPT.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [BASE_DIR / "templates", ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'DjangoGPT.wsgi.application'
+WSGI_APPLICATION = 'djangoGPT.wsgi.application'
 
 
 # Database
@@ -124,10 +130,32 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # new
+
+# django-crispy-forms
+CRISPY_TEMPLATE_PACK = 'bootstrap5' # new
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# django-allauth config
+SITE_ID = 1 # new
+AUTH_USER_MODEL = 'users.CustomUser' # new
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend', # new
+)
+
+# if SMP server is not set yet send emails to the console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # new
+
+LOGIN_REDIRECT_URL = 'landing-index'
+ACCOUNT_LOGOUT_REDIRECT = 'landing-index'
+
+ACCOUNT_USERNAME_REQUIRED = False # new
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # new
+ACCOUNT_EMAIL_REQUIRED = True # new
+ACCOUNT_UNIQUE_EMAIL = True # new

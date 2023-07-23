@@ -7,17 +7,22 @@
       </a>
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#home" class="nav-link px-2 link-secondary">Home</a></li>
-        <li><a href="#features" class="nav-link px-2 link-dark">Features</a></li>
-        <li><a href="#pricing" class="nav-link px-2 link-dark">Pricing</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Examples</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Contact</a></li>
+        <li><a href="{%url 'landing-index'%}#home" class="nav-link px-2 link-secondary">Home</a></li>
+        <li><a href="{%url 'landing-index'%}#features" class="nav-link px-2 link-dark">Features</a></li>
+        <li><a href="{%url 'landing-index'%}#pricing" class="nav-link px-2 link-dark">Pricing</a></li>
+        <li><a href="{%url 'landing-index'%}" class="nav-link px-2 link-dark">Examples</a></li>
+        <li><a href="{%url 'landing-index'%}" class="nav-link px-2 link-dark">About</a></li>
+        <li><a href="{%url 'landing-index'%}" class="nav-link px-2 link-dark">Contact</a></li>
       </ul>
 
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-dark me-2">Login</button>
-        <button type="button" class="btn btn-dark">Sign-up</button>
+        {%if user.is_authenticated%}
+        <a class="btn btn-outline-dark me-2">Hi {{user.email}}</a>
+        <a class="btn btn-dark" href="{%url 'account_logout'%}">lougout</a>
+        {%else%}
+        <a class="btn btn-outline-dark me-2" href="{%url 'account_login'%}">Login</a>
+        <a  class="btn btn-dark" href="{%url 'account_signup'%}">Sign-up</a>
+        {%endif%}
       </div>
     </header>
   </div>
