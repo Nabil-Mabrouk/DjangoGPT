@@ -24,7 +24,7 @@ DajangoGPT
         <p class="lead">A Django template to bring you GPT based idea to life quickly</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
           <button type="button" class="btn btn-dark btn-lg px-4 me-md-2">Learn more</button>
-          <button type="button" class="btn btn-outline-dark btn-lg px-4">Download (free)</button>
+          <button type="button" class="btn btn-outline-dark btn-lg px-4">GitHUB</button>
         </div>
       </div>
     </div>
@@ -53,29 +53,29 @@ DajangoGPT
       <div class="col d-flex align-items-start">
         <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#calendar3"/></svg>
         <div>
-          <h4 class="fw-bold mb-0">Visitor Statistics</h4>
-          <p> Track and analyze visitor statistics for valuable insights and optimization.</p>
+          <h4 class="fw-bold mb-0 text-muted">Visitor Statistics</h4>
+          <p class="text-muted"> Track and analyze visitor statistics for valuable insights and optimization.</p>
         </div>
       </div>
       <div class="col d-flex align-items-start">
         <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#home"/></svg>
         <div>
-          <h4 class="fw-bold mb-0">Subscription Tracking</h4>
-          <p>Monitor user subscriptions to different plans for efficient management.</p>
+          <h4 class="fw-bold mb-0 text-muted">Subscription Tracking</h4>
+          <p class="text-muted">Monitor user subscriptions to different plans for efficient management.</p>
         </div>
       </div>
       <div class="col d-flex align-items-start">
         <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#speedometer2"/></svg>
         <div>
-          <h4 class="fw-bold mb-0">Pre-built GPT Examples</h4>
-          <p>Access and customize various GPT-based application templates for quick deployment.</p>
+          <h4 class="fw-bold mb-0 text-muted">Pre-built GPT Examples</h4>
+          <p class="text-muted">Access and customize various GPT-based application templates for quick deployment.</p>
         </div>
       </div>
       <div class="col d-flex align-items-start">
         <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#toggles2"/></svg>
         <div>
-          <h4 class="fw-bold mb-0">Extensibility</h4>
-          <p>Easily extend the provided GPT examples to build tailor-made applications.</p>
+          <h4 class="fw-bold mb-0 text-muted">Extensibility</h4>
+          <p class="text-muted">Easily extend the provided GPT examples to build tailor-made applications.</p>
         </div>
       </div>
       <div class="col d-flex align-items-start">
@@ -88,13 +88,82 @@ DajangoGPT
       <div class="col d-flex align-items-start">
         <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#tools"/></svg>
         <div>
-          <h4 class="fw-bold mb-0">Comprehensive Documentation</h4>
-          <p>Detailed documentation for smooth integration and customization.</p>
+          <h4 class="fw-bold mb-0 text-muted">Comprehensive Documentation</h4>
+          <p class="text-muted">Detailed documentation for smooth integration and customization.</p>
         </div>
       </div>
     </div>
   </div>
 {%endblock features%}
+
+{%block trust%}
+
+
+  <div class="container col-xxl-8 px-4 py-5 mb-1" >
+    <h2 class="mb-4 pb-2 border-bottom">Projects</h2>
+
+
+  <div class="row">
+    <!--ADD CLASSES HERE d-flex align-items-stretch-->
+    <div class="col-lg-4 mb-3 d-flex align-items-stretch">
+      <div class="card">
+        <img src="{%static 'img/octopusGPT.png'%}" class="card-img-top" alt="Card Image">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">StudioGPT</h5>
+          <p class="card-text mb-4">Generate text, code, images, video, music, and speech using AI all in one place.</p>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">github</button>
+            </div>
+            <small class="text-muted ">2,548 downloads</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--ADD CLASSES HERE d-flex align-items-stretch-->
+    <div class="col-lg-4 mb-3 d-flex align-items-stretch">
+      <div class="card">
+        <img src="{%static 'img/octopusGPT.png'%}" class="card-img-top" alt="Card Image">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">OctopusGPT</h5>
+          <p class="card-text mb-4">Track the price action of hundreds of cryptocurrencies using a single AI-powered dashboard.</p>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">github</button>
+              </div>
+              <small class="text-muted ">2,548 downloads</small>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!--ADD CLASSES HERE d-flex align-items-stretch-->
+    <div class="col-lg-4 mb-3 d-flex align-items-stretch">
+      <div class="card">
+        <img src="{%static 'img/octopusGPT.png'%}" class="card-img-top" alt="Card Image">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">PipelineGPT</h5>
+          <p class="card-text mb-4">Design a pipeline to automate any complex task using AI</p>
+        </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">github</button>
+              </div>
+              <small class="text-muted ">2,548 downloads</small>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock trust%}
 
 {%block pricing%}
 
@@ -147,6 +216,7 @@ DajangoGPT
 </div>
 </div>
 {%endblock pricing%}
+
 
 {% block footer%}
 {% include 'landing/snippets/_footer.html' %}

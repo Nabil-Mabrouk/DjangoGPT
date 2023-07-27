@@ -9,9 +9,9 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="{%url 'landing-index'%}#home" class="nav-link px-3 link-dark">Home</a></li>
-          <li><a href="{%url 'landing-index'%}#features" class="nav-link px-3 link-dark">Features</a></li>
+          <li><a href="{%url 'landing-index'%}#features" class="nav-link px-3 link-dark">Features</a></li>          
+          <li><a href="{%url 'landing-index'%}" class="nav-link px-3 link-dark">Projects</a></li>
           <li><a href="{%url 'landing-index'%}#pricing" class="nav-link px-3 link-dark">Pricing</a></li>
-          <li><a href="{%url 'landing-index'%}" class="nav-link px-3 link-dark">Examples</a></li>
           <li><a href="{%url 'landing-index'%}" class="nav-link px-3 link-dark">About</a></li>
           <li><a href="{%url 'landing-index'%}" class="nav-link px-3 link-dark">Contact</a></li>
         </ul>
@@ -26,7 +26,7 @@
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             {%if user.is_authenticated%}            
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{%url 'account_logout'%}">Log out</a></li>
             {%else%}
