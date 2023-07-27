@@ -1,0 +1,29 @@
+{% extends 'landing/base.html'%}
+{%load static%}
+{% load crispy_forms_tags %}
+
+{%block title%}
+DajangoGPT
+{%endblock title%}
+
+{% block navbar%}
+{% include 'landing/snippets/_navbar.html' %}
+{% endblock navbar%}
+
+{% block hero%}
+<div class="container col-xxl-8 px-4 py-5 mb-4" id="home">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src={%static 'img/hero.png'%} class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">Profile</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ p_form|crispy }}
+            <button class="btn btn-success" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock hero%}

@@ -23,6 +23,7 @@ from users import views as user_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('profile/', user_views.profile, name='profile'),
+    path('edit_profile/', user_views.edit_profile, name='edit_profile'),
     path('', include('landing.urls')),
     # User management
     path('accounts/', include('allauth.urls')), # new

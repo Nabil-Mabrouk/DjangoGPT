@@ -1,7 +1,8 @@
 {%load static%}
 
+    <div class="container col-xxl-8 px-4 mb-4">
 <header class="p-3 mb-3 border-bottom">
-    <div class="container">
+
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
             <img src={%static 'img/hero.png'%} alt="Bootstrap Themes" width="40" height="32" loading="lazy">
@@ -22,7 +23,7 @@
 
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src={%static 'img/hero.png'%} alt="mdo" width="32" height="32" class="rounded-circle">
+            <img src="{{ user.profile.image.url }}" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             {%if user.is_authenticated%}            
@@ -40,5 +41,11 @@
           </ul>
         </div>
       </div>
-    </div>
-  </header>
+   
+  </header> 
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+  {% endfor %}
+  {% endif %}
+</div>
