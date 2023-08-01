@@ -88,50 +88,19 @@ DajangoGPT
         <h2>Welcome to the Dashboard, {{ user.username }}</h2>
           <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">New..</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">Cancel</button>
             </div>
           </div>
         </div>
-  
-   
 
         <h2>Section title</h2>
-        <div class="table-responsive">
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Model</th>
-                <th scope="col">TimeStamp</th>
-                <th scope="col">Description</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for learning in user_learnings %}
-                <tr>
-                    <td>{{learning.id}}</td>
-                    <td>{{learning.name}}</td>
-                    <td>{{learning.model}}</td>
-                    <td>{{learning.timeStamp}}</td>
-                    <td>{{learning.description}}</td>
-                    <td>
-                        <a class="link-secondary" href="#" aria-label="Add a new report">
-                            <span data-feather="eye"></span>
-                        </a>
-                        <a class="link-secondary" href="#" aria-label="Add a new report">
-                            <span data-feather="settings"></span>
-                        </a>
-                        <a class="link-secondary" href="#" aria-label="Add a new report">
-                            <span data-feather="trash-2"></span>
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-        </div>
+          <!-- Form to create a new learning -->
+          <h3>Create a New Learning</h3>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Create</button>
+        </form>
       </main>
     </div>
 </div>

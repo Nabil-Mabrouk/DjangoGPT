@@ -25,5 +25,5 @@ urlpatterns = [
     path('learnings/<int:pk>/download/', views.LearningDownloadView.as_view(), name='download_learning'),
 
     # Dashboard
-    path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
+    path('dashboard/', views.DashboardView.as_view(), name='pipelineGPT-dashboard'),
 ]

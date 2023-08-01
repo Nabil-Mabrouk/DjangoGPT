@@ -26,6 +26,8 @@ class Config(models.Model):
     
 class Learning(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # Foreign key to User model
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True, null=True)
     model = models.ForeignKey(ModelConfig, on_delete=models.CASCADE)
     temperature = models.FloatField()
     step_config = models.ForeignKey(Config, on_delete=models.CASCADE)

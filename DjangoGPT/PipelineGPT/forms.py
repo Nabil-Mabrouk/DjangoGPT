@@ -37,10 +37,12 @@ class ConfigForm(forms.ModelForm):
 class LearningForm(forms.ModelForm):
     class Meta:
         model = Learning
-        fields = ['user', 'model', 'temperature', 'step_config', 'prompt', 'feedback']
+        fields = ['user', 'name', 'description','model', 'temperature', 'step_config', 'prompt', 'feedback']
         labels = {
             'user': 'User',
             'model': 'Model',
+            'name':'Name',
+            'description':'Description',
             'temperature': 'Temperature',
             'step_config': 'Step Config',
             'prompt': 'Prompt',

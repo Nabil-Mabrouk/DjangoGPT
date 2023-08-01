@@ -25,6 +25,7 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
     path('edit_profile/', user_views.edit_profile, name='edit_profile'),
     path('', include('landing.urls')),
+    path('projects/pipelineGPT/', include('pipelineGPT.urls')),
     # User management
     path('accounts/', include('allauth.urls')), # new
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # new
