@@ -1,0 +1,24 @@
+<!-- dashboard.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Welcome to the Dashboard, {{ user.username }}</h2>
+
+  <!-- List of user's learnings -->
+  <ul>
+    {% for learning in user_learnings %}
+      <li>{{ learning.model }} - {{ learning.session }} - {{ learning.timestamp }}</li>
+    {% endfor %}
+  </ul>
+
+  <!-- Form to create a new learning -->
+  <h3>Create a New Learning</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+  </form>
+
+  <!-- Optional: Display model configs, steps, step configs, etc. if needed for the dashboard -->
+{% endblock %}

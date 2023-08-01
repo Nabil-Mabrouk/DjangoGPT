@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GPT Engineer Dashboard - Model Configurations</title>
+</head>
+<body>
+    <h1>GPT Engineer Dashboard</h1>
+    <h2>Model Configurations</h2>
+
+    <a href="{% url 'create_model_config' %}">Create New Model Configuration</a>
+
+    {% if model_configs %}
+        <ul>
+            {% for model_config in model_configs %}
+                <li>
+                    <a href="{% url 'model_config_detail' model_config.id %}">{{ model_config.name }}</a>
+                    <br>
+                    Description: {{ model_config.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No model configurations found.</p>
+    {% endif %}
+</body>
+</html>
