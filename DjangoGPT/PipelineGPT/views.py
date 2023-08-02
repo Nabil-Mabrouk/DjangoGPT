@@ -3,237 +3,232 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import ModelConfig, Step, Config, Learning
 from .forms import ModelConfigForm, StepForm, ConfigForm, LearningForm
 from django.contrib.auth.decorators import login_required
-
-
-@login_required
-def dashboard(request):
-
-    # get the current logged user
-    user = request.user
-
-    # Get all the learnings created by the user
-    user_learnings = Learning.objects.filter(user=user)
-
-    return render(request, 'dashboard.html', {
-        'user_learnings': user_learnings,
-    })
+import os, io
+import zipfile
+from django.http import HttpResponse
+from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib import messages
 
 @login_required
-def create_learning(request):
+def learning_list(request):
+    # Retrieve all Learning objects for the authenticated user
+    learnings = Learning.objects.filter(user=request.user)
+    return render(request, 'PipelineGPT/learning_list.html', {'learnings': learnings})
+
+@login_required
+def learning_detail(request, pk):
+    # Retrieve the specific Learning object for the authenticated user
+    learning = get_object_or_404(Learning, pk=pk, user=request.user)
+    return render(request, 'PipelineGPT/learning_detail.html', {'learning': learning})
+
+@login_required
+def learning_create(request):
     if request.method == 'POST':
         form = LearningForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('pipelineGPT-dashboard')
+            learning = form.save(commit=False)
+            learning.user = request.user
+            learning.save()
+            return redirect('learning_detail', pk=learning.pk)
     else:
         form = LearningForm()
-    return render(request, 'create_learning.html', {'form': form})
+    return render(request, 'PipelineGPT/learning_form.html', {'form': form})
 
-
-
-
-
-def execute_learning(request, pk):
-    learning = get_object_or_404(Learning, pk=pk)
-    # Perform execution logic here (execute the learning and produce code)
-
-    # Redirect back to the dashboard after execution
-    return redirect('dashboard')
-
-def download_code(request, pk):
-    learning = get_object_or_404(Learning, pk=pk)
-    # Get the code produced by the learning (assuming it's stored somewhere)
-
-    # Return a file download response
-    response = HttpResponse(code_content, content_type='application/force-download')
-    response['Content-Disposition'] = f'attachment; filename="{learning.session}.zip"'
-    return response
-
-
-
-
-
-
-
-
-
-
-def create_model_config(request):
+@login_required
+def learning_edit(request, pk):
+    learning = get_object_or_404(Learning, pk=pk, user=request.user)
     if request.method == 'POST':
-        form = ModelConfigForm(request.POST)
+        form = LearningForm(request.POST, instance=learning)
         if form.is_valid():
             form.save()
-            return redirect('model_config_list')
+            return redirect('learning_detail', pk=learning.pk)
     else:
-        form = ModelConfigForm()
-    return render(request, 'create_model_config.html', {'form': form})
+        form = LearningForm(instance=learning)
+    return render(request, 'PipelineGPT/learning_form.html', {'form': form})
 
-def model_config_list(request):
-    model_configs = ModelConfig.objects.all()
-    return render(request, 'model_config_list.html', {'model_configs': model_configs})
-
-def edit_model_config(request, pk):
-    model_config = get_object_or_404(ModelConfig, pk=pk)
+@login_required
+def learning_delete(request, pk):
+    learning = get_object_or_404(Learning, pk=pk, user=request.user)
     if request.method == 'POST':
-        form = ModelConfigForm(request.POST, instance=model_config)
-        if form.is_valid():
-            form.save()
-            return redirect('model_config_list')
-    else:
-        form = ModelConfigForm(instance=model_config)
-    return render(request, 'edit_model_config.html', {'form': form})
+        learning.delete()
+        return redirect('learning_list')
+    return render(request, 'PipelineGPT/learning_confirm_delete.html', {'learning': learning})
 
-def delete_model_config(request, pk):
-    model_config = get_object_or_404(ModelConfig, pk=pk)
-    if request.method == 'POST':
-        model_config.delete()
-        return redirect('model_config_list')
-    return render(request, 'delete_model_config.html', {'model_config': model_config})
 
-##################
-
-def create_config(request):
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def config_create(request):
     if request.method == 'POST':
         form = ConfigForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Configuration created successfully.')
             return redirect('config_list')
     else:
         form = ConfigForm()
-    return render(request, 'create_model_config.html', {'form': form})
+    return render(request, 'PipelineGPT/config_form.html', {'form': form})
 
-def config_list(request):
-    configs = Config.objects.all()
-    return render(request, 'config_list.html', {'configs': configs})
-
-def edit_config(request, pk):
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def config_edit(request, pk):
     config = get_object_or_404(Config, pk=pk)
     if request.method == 'POST':
         form = ConfigForm(request.POST, instance=config)
         if form.is_valid():
             form.save()
-            return redirect('config_list')
+            messages.success(request, 'Configuration updated successfully.')
+            return redirect('config_detail', pk=config.pk)
     else:
         form = ConfigForm(instance=config)
-    return render(request, 'edit_config.html', {'form': form})
+    return render(request, 'PipelineGPT/config_form.html', {'form': form})
 
-def delete_config(request, pk):
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def config_delete(request, pk):
     config = get_object_or_404(Config, pk=pk)
     if request.method == 'POST':
         config.delete()
+        messages.success(request, 'Configuration deleted successfully.')
         return redirect('config_list')
-    return render(request, 'delete_config.html', {'config': config})
+    return render(request, 'PipelineGPT/config_confirm_delete.html', {'config': config})
 
-################
+@login_required
+def config_list(request):
+    configs = Config.objects.all()
+    return render(request, 'PipelineGPT/config_list.html', {'configs': configs})
 
-def create_step(request):
+@login_required
+def config_detail(request, pk):
+    config = get_object_or_404(Config, pk=pk)
+    return render(request, 'PipelineGPT/config_detail.html', {'config': config})
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def model_config_create(request):
+    if request.method == 'POST':
+        form = ModelConfigForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Model Configuration created successfully.')
+            return redirect('model_config_list')
+    else:
+        form = ModelConfigForm()
+    return render(request, 'PipelineGPT/model_config_form.html', {'form': form})
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def model_config_edit(request, pk):
+    model_config = get_object_or_404(ModelConfig, pk=pk)
+    if request.method == 'POST':
+        form = ModelConfigForm(request.POST, instance=model_config)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Model Configuration updated successfully.')
+            return redirect('model_config_detail', pk=model_config.pk)
+    else:
+        form = ModelConfigForm(instance=model_config)
+    return render(request, 'PipelineGPT/model_config_form.html', {'form': form})
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def model_config_delete(request, pk):
+    model_config = get_object_or_404(ModelConfig, pk=pk)
+    if request.method == 'POST':
+        model_config.delete()
+        messages.success(request, 'Model Configuration deleted successfully.')
+        return redirect('model_config_list')
+    return render(request, 'PipelineGPT/model_config_confirm_delete.html', {'model_config': model_config})
+
+@login_required
+def model_config_list(request):
+    model_configs = ModelConfig.objects.all()
+    return render(request, 'PipelineGPT/model_config_list.html', {'model_configs': model_configs})
+
+@login_required
+def model_config_detail(request, pk):
+    model_config = get_object_or_404(ModelConfig, pk=pk)
+    return render(request, 'PipelineGPT/model_config_detail.html', {'model_config': model_config})
+
+@login_required
+def step_list(request):
+    steps = Step.objects.all()
+    return render(request, 'PipelineGPT/step_list.html', {'steps': steps})
+
+@login_required
+def step_detail(request, pk):
+    step = get_object_or_404(Step, pk=pk)
+    return render(request, 'PipelineGPT/step_detail.html', {'step': step})
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def step_create(request):
     if request.method == 'POST':
         form = StepForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Step created successfully.')
             return redirect('step_list')
     else:
         form = StepForm()
-    return render(request, 'create_step.html', {'form': form})
+    return render(request, 'PipelineGPT/step_form.html', {'form': form})
 
-def step_list(request):
-    steps = Step.objects.all()
-    return render(request, 'step_list.html', {'steps': steps})
-
-def edit_step(request, pk):
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def step_update(request, pk):
     step = get_object_or_404(Step, pk=pk)
     if request.method == 'POST':
         form = StepForm(request.POST, instance=step)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Step updated successfully.')
             return redirect('step_list')
     else:
         form = StepForm(instance=step)
-    return render(request, 'edit_step.html', {'form': form})
+    return render(request, 'PipelineGPT/step_form.html', {'form': form})
 
-def delete_step(request, pk):
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def step_delete(request, pk):
     step = get_object_or_404(Step, pk=pk)
     if request.method == 'POST':
         step.delete()
+        messages.success(request, 'Step deleted successfully.')
         return redirect('step_list')
-    return render(request, 'delete_step.html', {'step': step})
-
-#######
-
-
-
-def learning_list(request):
-    learnings = Learning.objects.all()
-    return render(request, 'learning_list.html', {'learnings': learnings})
-
-def edit_learning(request, pk):
-    learning = get_object_or_404(Learning, pk=pk)
-    if request.method == 'POST':
-        form = LearningForm(request.POST, instance=learning)
-        if form.is_valid():
-            form.save()
-            return redirect('learning_list')
-    else:
-        form = LearningForm(instance=learning)
-    return render(request, 'edit_learning.html', {'form': form})
-
-def delete_learnng(request, pk):
-    learning = get_object_or_404(Learning, pk=pk)
-    if request.method == 'POST':
-        learning.delete()
-        return redirect('learnng_list')
-    return render(request, 'delete_learning.html', {'learning': learning})
+    return render(request, 'PipelineGPT/step_confirm_delete.html', {'step': step})
 
 
 @login_required
-def dashboard(request):
-
-    # get the current logged user
-    user = request.user
-
-    # Get all the learnings created by the user
-    user_learnings = Learning.objects.filter(user=user)
-
-    # Get all the model configs, steps, and step configs (optional: if needed for the dashboard)
-    model_configs = ModelConfig.objects.all()
-    steps = Step.objects.all()
-    step_configs = Config.objects.all()
-
-    # Handle new learning creation form submission
-    if request.method == 'POST':
-        form = LearningForm(request.POST)
-        if form.is_valid():
-            learning = form.save(commit=False)
-            learning.user = user
-            learning.save()
-            return redirect('dashboard')
-
-    else:
-        form = LearningForm()
-
-    return render(request, 'dashboard.html', {
-        'user_learnings': user_learnings,
-        'form': form,
-        'model_configs': model_configs,
-        'steps': steps,
-        'step_configs': step_configs,
-    })
-
 def execute_learning(request, pk):
-    learning = get_object_or_404(Learning, pk=pk)
+    learning = get_object_or_404(Learning, pk=pk, user=request.user)
     # Perform execution logic here (execute the learning and produce code)
 
+    print(f'Executing learning : {learning.name}')
+
     # Redirect back to the dashboard after execution
-    return redirect('dashboard')
+    return redirect('learning_list')
 
+
+@login_required
 def download_code(request, pk):
-    learning = get_object_or_404(Learning, pk=pk)
-    # Get the code produced by the learning (assuming it's stored somewhere)
+    learning = get_object_or_404(Learning, pk=pk, user=request.user)
 
-    # Return a file download response
-    response = HttpResponse(code_content, content_type='application/force-download')
-    response['Content-Disposition'] = f'attachment; filename="{learning.session}.zip"'
-    return response
+    try:
+        # Create an in-memory zip file
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, 'w') as zip_file:
+            for file_path in learning.file_names:
+                zip_file.write(file_path, os.path.basename(file_path))
+
+        # Create a downloadable response
+        response = HttpResponse(buffer.getvalue(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{learning.session}.zip"'
+        return response
+
+    except Exception as e:
+        # Handle any exceptions here (e.g., file not found, zip creation error)
+        raise Http404("Error occurred while creating the zip file: " + str(e))
 
 
 

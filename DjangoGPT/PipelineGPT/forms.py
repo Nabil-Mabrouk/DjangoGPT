@@ -39,10 +39,10 @@ class LearningForm(forms.ModelForm):
         model = Learning
         fields = ['user', 'name', 'description','model', 'temperature', 'step_config', 'prompt', 'feedback']
         labels = {
-            'user': 'User',
-            'model': 'Model',
+            'user': 'User',            
             'name':'Name',
             'description':'Description',
+            'model': 'Model',
             'temperature': 'Temperature',
             'step_config': 'Step Config',
             'prompt': 'Prompt',

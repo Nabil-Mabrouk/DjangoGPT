@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'sales.apps.SalesConfig',
     'landing.apps.LandingConfig',
-    'pipelineGPT.apps.PipelineGPTConfig',
+    'PipelineGPT.apps.PipelinegptConfig',
 
     # Third-party
     'crispy_forms', # new

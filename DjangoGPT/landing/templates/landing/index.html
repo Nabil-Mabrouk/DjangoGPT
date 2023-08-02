@@ -134,8 +134,12 @@ DajangoGPT
           <div class="card-footer">
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">github</button>
+                {%if user.is_authenticated%}  
+                <div class="btn btn-sm btn-outline-secondary" href="{url 'learning_list'}">View</div>
+                {%else%}
+                <div class="btn btn-sm btn-outline-secondary" href="{%url 'account_login'%}">View</div>
+                {%endif%}
+                <div class="btn btn-sm btn-outline-secondary" href ='#'>github</div>
               </div>
               <small class="text-muted ">2,548 downloads</small>
             </div>

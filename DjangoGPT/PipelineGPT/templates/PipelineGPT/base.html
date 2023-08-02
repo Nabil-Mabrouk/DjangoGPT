@@ -1,0 +1,77 @@
+{%extends 'landing/base.html'%}
+{%load static%}
+
+
+{%block title%}
+Pipeline GPT
+{%endblock title%}
+
+{%block css%}
+{%endblock css%}
+
+{% block navbar%}
+{% include 'landing/snippets/_navbar.html' %}
+{% endblock navbar%}
+
+{%block hero%}
+<div class="container col-xxl-8 px-4 py-5 mb-1" >
+    <h2 class="mb-4 pb-2 border-bottom">Dashboard</h2>
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'learning_list' %}">
+                  <span data-feather="home"></span>
+                  Learnings
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'model_config_list' %}">
+                  <span data-feather="file"></span>
+                  Models
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'config_list' %}">
+                  <span data-feather="shopping-cart"></span>
+                  Configs
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'step_list' %}">
+                  <span data-feather="users"></span>
+                  Steps
+                </a>
+              </li>
+            </ul>
+    
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>History</span>
+              <a class="link-secondary" href="#" aria-label="Add a new report">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Sessions
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Files
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+    
+        {%block content%}
+
+        {%endblock content%}
+      </div>
+</div>
+{%endblock hero%}
