@@ -5,9 +5,11 @@
 {%block content%}
   
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap 
+        align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h2>Welcome to the Dashboard, {{ user.username }}</h2>
-
+        </div>
+<div>
     <h3>{% if form.instance.pk %}Update Learning{% else %}Create Learning{% endif %}</h1>
     <form method="POST">
         {% csrf_token %}
@@ -15,3 +17,4 @@
         <input type="submit" value="{% if form.instance.pk %}Update{% else %}Create{% endif %}">
     </form>
 </div>
+{%endblock%}

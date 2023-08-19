@@ -25,6 +25,7 @@ def learning_detail(request, pk):
 
 @login_required
 def learning_create(request):
+    print("create new learning ..")
     if request.method == 'POST':
         form = LearningForm(request.POST)
         if form.is_valid():

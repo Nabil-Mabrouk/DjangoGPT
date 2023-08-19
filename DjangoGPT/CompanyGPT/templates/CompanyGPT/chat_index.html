@@ -1,0 +1,93 @@
+{%extends 'landing/base.html'%}
+{%load static%}
+
+
+{%block title%}
+{%endblock %}
+
+
+{% block navbar%}
+{% include 'landing/snippets/_navbar.html' %}
+{% endblock navbar%}
+
+{%block hero%}
+<div class="container col-xxl-8 px-4 mb-4" id="home">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-1">
+
+    </div>
+  </div>
+{%endblock hero%}
+
+{%block features%}
+{%endblock features%}
+
+{%block trust%}
+
+
+<div class="container col-xxl-8 px-4 py-1 mb-1" >
+<h2 class="mb-4 pb-2 border-bottom">CompanyGPT</h2>
+
+<div class="row col-12">
+    <div class="input-group mb-3">
+        <div id="chat-messages" type="text" class="form-control" 
+        placeholder="Recipient's username" >
+        {{ chats.0|safe }}
+        </div>
+    </div>
+
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">Visitor</span>
+        <input id="input-message" type="text" class="form-control" 
+        placeholder="Enter your message" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="send-button">Send</button>
+      </div>
+</div>
+
+</div>
+{%endblock trust%}
+
+{%block pricing%}
+{%endblock pricing%}
+
+
+{% block js%}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const messages = {{ chats | safe }};
+        let messageIndex = 1;
+        const chatMessages = document.getElementById("chat-messages");
+        const inputMessage = document.getElementById("input-message");
+        const sendButton = document.getElementById("send-button");
+
+        function sendMessage() {
+            const newMessage = inputMessage.value.trim();
+            if (newMessage !== "") {
+                //messages.push(newMessage);
+                chatMessages.innerHTML += `<div border-bottom><br> <font-color="green"><strong>Visitor</strong>: ${newMessage}</div>`;
+                inputMessage.value = "";
+                messageIndex++;
+            }
+        }
+
+        function sendPredefinedMessage() {
+            if (messageIndex < messages.length) {
+                chatMessages.innerHTML += `<br> ${messages[messageIndex]}`;
+                messageIndex++;
+            }
+        }
+
+        sendButton.addEventListener("click", function() {
+            sendMessage();
+            sendPredefinedMessage();
+        });
+
+        inputMessage.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+                sendPredefinedMessage();
+            }
+        });
+    });
+</script>
+{% endblock js%}
